@@ -1,6 +1,5 @@
 const MONEV_API    = 'https://monev-api.maganghub.kemnaker.go.id';
 const MONEV_ORIGIN = 'monev.maganghub.kemnaker.go.id';
-const WORKING_DAYS = 22;
 
 const $  = (id) => document.getElementById(id);
 const rp = (n)  => new Intl.NumberFormat('id-ID', {
@@ -217,12 +216,16 @@ async function main() {
     $('city-picker').style.display = 'none';
     $('el-kota').textContent       = stipend.kota;
     $('el-provinsi').textContent   = stipend.provinsi;
-    const bulanan     = stipend.uang_saku;
-    const harian      = Math.floor(bulanan / WORKING_DAYS);
-    const cutiDibayar = Math.min(hariCuti, 3);
+    const bulanan      = stipend.uang_saku;
+    const harian       = totalHariKerja > 0 ? Math.floor(bulanan / totalHariKerja) : 0;
+    const cutiDibayar  = Math.min(hariCuti, 3);
+    const hariTerbayar = Math.min(hariHadir + cutiDibayar, totalHariKerja);
+    const earned       = (hariTerbayar === totalHariKerja && totalHariKerja > 0)
+      ? bulanan
+      : hariTerbayar * harian;
     $('el-bulanan').textContent = rp(bulanan);
     $('el-harian').textContent  = rp(harian);
-    $('el-earned').textContent  = rp((hariHadir + cutiDibayar) * harian);
+    $('el-earned').textContent  = rp(earned);
   } else {
     $('el-kota').textContent     = cityRaw || 'Tidak diketahui';
     $('el-provinsi').textContent = '?';
@@ -240,11 +243,16 @@ async function main() {
       $('city-picker').style.display = 'none';
       $('el-kota').textContent        = found.kota;
       $('el-provinsi').textContent    = found.provinsi;
-      const b = found.uang_saku;
-      const h = Math.floor(b / WORKING_DAYS);
+      const b            = found.uang_saku;
+      const h            = totalHariKerja > 0 ? Math.floor(b / totalHariKerja) : 0;
+      const cutiDibayar  = Math.min(hariCuti, 3);
+      const hariTerbayar = Math.min(hariHadir + cutiDibayar, totalHariKerja);
+      const earned       = (hariTerbayar === totalHariKerja && totalHariKerja > 0)
+        ? b
+        : hariTerbayar * h;
       $('el-bulanan').textContent = rp(b);
       $('el-harian').textContent  = rp(h);
-      $('el-earned').textContent  = rp((hariHadir + Math.min(hariCuti, 3)) * h);
+      $('el-earned').textContent  = rp(earned);
     });
   }
 }
