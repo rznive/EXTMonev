@@ -2,8 +2,6 @@
 
 Chrome Extension untuk melihat informasi uang saku dan rekap kehadiran periode magang Kemnaker secara cepat, langsung dari browser.
 
-![EXTMonev](image/EXTMonev.png)
-
 ## Fitur
 
 - Informasi uang saku bulanan & estimasi per hari berdasarkan UMK kota magang
