@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>EXTMonev</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <div id="state-loading" class="state">
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      <span>Memuat...</span>
+    </div>
+  </div>
+
+  <div id="state-no-token" class="state" style="display:none;">
+    <div class="no-token-wrap">
+      <div class="nt-title">Belum terhubung</div>
+      <div class="nt-desc">Buka dan login di <strong>monev.maganghub.kemnaker.go.id</strong> terlebih dahulu.</div>
+      <a href="https://monev.maganghub.kemnaker.go.id" target="_blank" class="btn-primary">Buka Kemnaker Monev</a>
+    </div>
+  </div>
+
+  <div id="state-main" class="state" style="display:none;">
+
+    <div class="top-bar">
+      <div class="top-left">
+        <div class="app-badge">E</div>
+        <div>
+          <div class="app-title">EXTMonev</div>
+          <div class="user-name" id="el-user-name">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="period-bar">
+      <span class="period-label">Periode aktif</span>
+      <span id="el-period" class="period-val">—</span>
+    </div>
+
+    <div class="day-grid">
+      <div class="day-card">
+        <div class="day-num" id="el-total-hari">—</div>
+        <div class="day-lbl">Hari Kerja</div>
+      </div>
+      <div class="day-card accent-green">
+        <div class="day-num" id="el-hadir">—</div>
+        <div class="day-lbl">Hadir</div>
+      </div>
+      <div class="day-card accent-yellow">
+        <div class="day-num" id="el-cuti">—</div>
+        <div class="day-lbl">Cuti</div>
+      </div>
+      <div class="day-card accent-gray">
+        <div class="day-num" id="el-sisa">—</div>
+        <div class="day-lbl">Sisa</div>
+      </div>
+    </div>
+
+    <div id="el-today-bar" class="today-bar">
+      <span class="today-lbl">Hari ini</span>
+      <span id="el-today-val" class="today-val">—</span>
+    </div>
+
+    <div class="gaji-wrap">
+      <div class="gaji-top">
+        <div>
+          <div class="kota" id="el-kota">—</div>
+          <div class="provinsi" id="el-provinsi">—</div>
+        </div>
+        <div class="gaji-rates">
+          <div class="rate-item">
+            <span class="rate-lbl">Per bulan</span>
+            <span class="rate-val" id="el-bulanan">—</span>
+          </div>
+          <div class="rate-sep"></div>
+          <div class="rate-item">
+            <span class="rate-lbl">Per hari</span>
+            <span class="rate-val" id="el-harian">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="earned-bar">
+        <span class="earned-lbl">Estimasi didapat periode ini</span>
+        <span class="earned-val" id="el-earned">—</span>
+      </div>
+    </div>
+
+    <div id="city-picker" style="display:none;">
+      <div class="picker-label">Pilih kota magang</div>
+      <select id="el-city-select" class="city-select"></select>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="coming-soon">WA Reminder — coming soon</div>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

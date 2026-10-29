@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "EXTMonev",
+  "version": "1.0.0",
+  "description": "Informasi uang saku & rekap kehadiran periode magang Kemnaker.",
+  "icons": {
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    },
+    "default_title": "EXTMonev"
+  },
+  "permissions": [
+    "storage",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://monev-api.maganghub.kemnaker.go.id/*",
+    "https://monev.maganghub.kemnaker.go.id/*"
+  ]
+}
