@@ -54,24 +54,40 @@ async function getGajiData() {
   return _gajiCache;
 }
 
-function norm(s) {
+function clean(s) {
   return s.toLowerCase()
     .replace(/\badm\b\.?/g, 'administrasi')
     .replace(/\bkab\b\.?/g, 'kabupaten')
-    .replace(/\b(kabupaten|administrasi|kota)\b/g, '')
     .replace(/[^a-z0-9 ]/g, '')
+    .replace(/\s+/g, ' ').trim();
+}
+
+function stripPrefix(s) {
+  return s.replace(/\b(kabupaten|administrasi|kota)\b/g, '')
     .replace(/\s+/g, ' ').trim();
 }
 
 function lookupStipend(gajiData, city) {
   if (!city) return null;
-  const n = norm(city);
+  const c = clean(city);
+
+  let found = gajiData.find((d) => clean(d.kota) === c);
+  if (found) return found;
+
+  found = gajiData.find((d) => clean(d.kota).includes(c) || c.includes(clean(d.kota)));
+  if (found) return found;
+
+  const bare = stripPrefix(c);
+  found = gajiData.find((d) => stripPrefix(clean(d.kota)) === bare);
+  if (found) return found;
+
+  found = gajiData.find((d) => stripPrefix(clean(d.kota)).includes(bare));
+  if (found) return found;
+
+  const words = bare.split(' ').filter(Boolean);
   return (
-    gajiData.find((d) => norm(d.kota) === n) ||
-    gajiData.find((d) => norm(d.kota).includes(n)) ||
     gajiData.find((d) => {
-      const words = n.split(' ').filter(Boolean);
-      const hay   = norm(d.kota);
+      const hay = stripPrefix(clean(d.kota));
       return words.length > 0 && words.every((w) => hay.includes(w));
     }) || null
   );
